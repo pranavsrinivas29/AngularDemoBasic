@@ -1,0 +1,215 @@
+<app-hello-world>
+
+</app-hello-world>
+<app-parent></app-parent>
+
+<app-child>
+    <h2 question>Is this ng-contrent cool?</h2>
+    <p answer>Yeah it is.Hello from the root</p>
+</app-child>
+
+
+
+<button (click)="toggleText($event)">Toggle text
+    {{
+    showText
+    }}
+
+</button>
+
+
+<br>
+<!-- pipe -->
+{{todayDate | date : 'EEEE MMMM dd yy' | uppercase}}
+
+<!-- custom pipe -->
+{{ 'World' | greetingsPipe | lowercase}}
+
+
+<!-- property binding -->
+<img [src]="itemImageUrl">
+
+<!-- button disabled -->
+<button [disabled]="isDisabled" class="disabledB" (click)="onClickChange($event)">Click</button>
+
+
+
+<!-- attribute binding -->
+<tr>
+    <td [attr.colspan]="1+3">one-two</td>
+</tr>
+
+<!-- class binding -->
+<div [class.sale]="onSale">Hi there!</div>
+
+<!-- multiple class binding -->
+<div [class]="'class1 class2'">Hi there!</div>
+
+
+<!-- style binding -->
+<div [style]="'width: 200px;
+background: red'">
+    hi div</div>
+
+<!-- event binding -->
+<button (click)="onSave()">Click event</button>
+
+
+
+
+<!-- two way binding -->
+<app-app-sizer [(size)]="fontSizepx"></app-app-sizer>
+<!-- same as  
+<app-app-sizer [size]="fontSizepx" (sizeChange)="fontSizepx">
+</app-app-sizer>
+ -->
+<div [style.font-size.px]="fontSizepx">
+    Resizable text
+</div>
+
+
+<!-- template variable -->
+<label>Phone</label>
+<input #phone placeholder="phone">
+
+
+<button (click)="callPhone(phone.value)">Call</button>
+
+
+<!-- ngClass -->
+<div [ngClass]="currentClasses">Example</div>
+
+<!-- ngstyle -->
+<div [ngStyle]="currentStyle">ngStyles</div>
+
+<!-- ngmodule -->
+<label for="example">
+    {{name}}
+</label>
+<input [(ngModel)]="name" id="example">
+
+
+<!--Attribute Directive -->
+<p app-highlight>Directive Test</p>
+
+<!-- Structural Directive -->
+<!-- ngIf -->
+<div *ngIf="isActive">Active NgIf</div>
+
+<div *ngIf="isActive2">Inactive NgIF</div>
+
+
+<!-- ngFor -->
+<div *ngFor="let item of items">
+    {{item.name}} And Section: {{ item.section}}
+</div>
+
+<br>
+
+<!-- ngSwitch -->
+<div [ngSwitch]="item.name">ngSwitch
+    <div *ngSwitchCase="'Bob'">hi Bob</div>
+    <div *ngSwitchCase="'Monika'">hi Bob</div>
+    <div *ngSwitchDefault>Hi friend</div>
+</div>
+
+
+<!-- routing -->
+<h1 style="color:green">Angular router app</h1>
+<nav>
+    <ul>
+        <li><a routerLink="/first-component/5">First Component</a></li>
+
+        <li><a routerLink="/second-component">Second Component</a></li>
+    </ul>
+</nav>
+<router-outlet> </router-outlet>
+
+
+<br><br>
+<!-- template driven form -->
+<!-- testing the model -->
+template driven form
+<div [hidden]="submited">
+    <p>{{ model | json }}</p>
+    <form #petForm="ngForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" required [(ngModel)]="model.name" name="name">
+
+        </div>
+
+        <div>
+            <label for="species">Species</label>
+            <select id="species" required [(ngModel)]="model.species" name="species">
+                <option *ngFor="let specie of species" [value]="specie">{{specie}}</option>
+
+            </select>
+
+        </div>
+
+        <button [disabled]="!petForm.form.valid" type="submit">Submit</button>
+    </form>
+</div>
+<div [hidden]="!submited">
+    <h3>You have already submitted the form.Kindly refresh for new submission or edit your submitted values<br>
+        Submitted values are: <br></h3>
+    <p> Name: {{model.name}}</p>
+    <p>Species: {{model.species}}</p>
+    <button (click)="submited=false">Edit</button>
+</div>
+
+<br><br>
+
+<!-- Reactive forms -->
+Reactive form
+<label for="name1">Name:</label>
+<input id="name1" type="text" [formControl]="name1">
+<p>Value:{{name1.value}}</p>
+<p>
+    <button (click)="updateName()">SubmitName</button>
+</p>
+
+
+
+<!--Reactive Form Group  -->
+FormGroup
+<form [formGroup]="profileForm" (ngSubmit)="onSubmitForm()">
+    <label for="first-name">FirstName:</label>
+    <input type="text" id="first-name" formControlName="firstName">
+
+    <label for="last-name">LastName:</label>
+    <input type="text" id="last-name" formControlName="lastName">
+
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>
+<br><br>
+<!-- formValidation -->
+FormValidation
+<form>
+    <input type="text" name="name2" required minlength="4" [(ngModel)]="nameInput" #name2="ngModel"
+    />
+<div *ngIf="!name2.valid && name2.touched">
+    <div *ngIf="name2.errors?.required">
+        Name is required
+    </div>
+    <div *ngIf="name2.errors?.minlength">
+            Name must be 4 characters long 
+    </div>
+</div>
+</form>
+
+
+Reactive - FormValidation
+<form [formGroup]="validateForm">
+    <input type="text" name="name2" required minlength="4" formControlName="name2"
+    />
+<div *ngIf="!name2.valid && name2.touched">
+    <div *ngIf="name2.errors?.required">
+        Name is required
+    </div>
+    <div *ngIf="name2.errors?.minlength">
+            Name must be 4 characters long 
+    </div>
+</div>
+</form>
